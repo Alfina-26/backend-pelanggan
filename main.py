@@ -13,7 +13,8 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:5174", 
-        "https://frontend-pelanggan.vercel.app" # ← tambahkan ini
+        "https://frontend-pelanggan.vercel.app",
+        https://frontend-pelanggan-449snee0b-alfina-26s-projects.vercel.app", # ← tambahkan ini
     ],
     allow_credentials=True,
     allow_methods=["*"],
