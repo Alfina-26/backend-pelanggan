@@ -3,13 +3,20 @@ from models import User
 from passlib.context import CryptContext
 
 pwd_context = CryptContext(schemes=["argon2"], deprecated="auto")
+
 db = SessionLocal()
-user = db.query(User).filter(User.username == "admin").first()
-if user:
-    print("User ditemukan!")
-    print("Username:", user.username)
-    print("Role:", user.role)
-    print("Password cocok:", pwd_context.verify("admin123", user.hashed_password))
+
+existing = db.query(User).filter(User.username == "admin").first()
+if existing:
+    print("Admin sudah ada!")
 else:
-    print("User admin TIDAK ADA di database!")
+    admin = User(
+        username="admin",
+        hashed_password=pwd_context.hash("admin123"),
+        role="admin"
+    )
+    db.add(admin)
+    db.commit()
+    print("Admin berhasil dibuat! Login dengan: admin / admin123")
+
 db.close()
